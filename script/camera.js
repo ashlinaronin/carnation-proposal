@@ -5,39 +5,18 @@
 	License: MIT
 */
 
-var camera = (function() {
+var camera = (function () {
   var options;
   var video, canvas, context;
+  var videoLoaded = false;
   var renderTimer;
 
+
   function initVideoStream() {
-    video = document.createElement("video");
-    video.setAttribute('width', options.width);
-    video.setAttribute('height', options.height);
-    video.setAttribute('playsinline', 'true');
-    video.setAttribute('webkit-playsinline', 'true');
+    video = document.getElementById('water-video');
 
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-    window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
-
-    if (navigator.getUserMedia) {
-      navigator.getUserMedia({
-        video: true,
-        audio: false,
-      }, function(stream) {
-        options.onSuccess();
-
-        if (video.mozSrcObject !== undefined) { // hack for Firefox < 19
-          video.mozSrcObject = stream;
-        } else {
-          video.srcObject = stream;
-        }
-
-        initCanvas();
-      }, options.onError);
-    } else {
-      options.onNotSupported();
-    }
+    video.addEventListener("loadeddata", onLoadedData, false);
+    initCanvas();
   }
 
   function initCanvas() {
@@ -54,10 +33,27 @@ var camera = (function() {
     }
   }
 
+  function onLoadedData() {
+    videoLoaded = true;
+    video.play();
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    video.removeEventListener("loadeddata", onLoadedData);
+
+    renderTimer = setInterval(function () {
+      try {
+        context.drawImage(video, 0, 0, video.width, video.height);
+        options.onFrame(canvas);
+      } catch (e) {
+        // TODO
+      }
+    }, Math.round(1000 / options.fps));
+  }
+
   function startCapture() {
     video.play();
 
-    renderTimer = setInterval(function() {
+    renderTimer = setInterval(function () {
       try {
         context.drawImage(video, 0, 0, video.width, video.height);
         options.onFrame(canvas);
@@ -83,8 +79,9 @@ var camera = (function() {
   }
 
   return {
-    init: function(captureOptions) {
-      var doNothing = function(){};
+    init: function (captureOptions) {
+      var doNothing = function () {
+      };
 
       options = captureOptions || {};
 
