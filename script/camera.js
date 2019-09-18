@@ -40,14 +40,13 @@ var camera = (function () {
     canvas.height = video.videoHeight;
     video.removeEventListener("loadeddata", onLoadedData);
 
-    renderTimer = setInterval(function () {
-      try {
-        context.drawImage(video, 0, 0, video.width, video.height);
-        options.onFrame(canvas);
-      } catch (e) {
-        // TODO
-      }
-    }, Math.round(1000 / options.fps));
+    animate();
+  }
+
+  function animate() {
+    context.drawImage(video, 0, 0, video.width, video.height);
+    options.onFrame(canvas);
+    requestAnimationFrame(animate);
   }
 
   function startCapture() {
