@@ -21,7 +21,8 @@
         // contrast: 128,
         callback: function(asciiString) {
           asciiContainer.innerHTML = asciiString;
-        }
+        },
+        characters: "customtext"
       });
     },
 
