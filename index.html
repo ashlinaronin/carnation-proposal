@@ -20,13 +20,13 @@
 </head>
 <body>
 
+<button id="play">play</button>
+
 <pre id="ascii"></pre>
-
-<canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
-<video id="water-video" src="fire-720p.mp4" width="640" height="480" loop style="display:none;"></video>
-
-<script src="script/camera.js"></script>
+<!--<video id="fire-video" src="fire-720p.mp4" width="640" height="480" loop autoplay style="display:none;"></video>-->
+<!--<video id="water-video" src="water.mp4" width="640" height="480" loop autoplay style="display:none;"></video>-->
+<!-- TODO: turn into module -->
 <script src="script/ascii.js"></script>
-<script src="script/app.js"></script>
+<script type="module" src="script/app.js"></script>
 </body>
 </html>
