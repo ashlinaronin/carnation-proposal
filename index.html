@@ -16,14 +16,26 @@
       letter-spacing: -1.5px;
       text-align: center;
     }
+
+    .flex {
+      display: flex;
+    }
+
+    .flex > * {
+      padding: 10px;
+    }
   </style>
 </head>
 <body>
 
 <button id="play">play</button>
 
-<pre class="ascii" id="water-ascii"></pre>
-<pre class="ascii" id="fire-ascii"></pre>
+<div class="flex">
+  <pre class="ascii" id="water-ascii"></pre>
+  <pre class="ascii" id="fire-ascii"></pre>
+</div>
+
+
 <!-- TODO: turn into module -->
 <script src="script/ascii.js"></script>
 <script type="module" src="script/app.js"></script>

@@ -17,33 +17,30 @@ const waterAsciiContainer = document.getElementById("water-ascii");
 let wordIndex = 0;
 
 const waterAnimator = new VideoAnimator({
-  width: 160,
-  height: 120,
+  width: 80,
+  height: 60,
   videoSrc: "../water.mp4",
   onFrame: function (canvas) {
-    wordIndex = wordIndex + 0.01;
-    console.log(wordIndex);
+    wordIndex = (wordIndex + 0.01) % words.length;
     ascii.fromCanvas(canvas, {
       callback: function (asciiString) {
         waterAsciiContainer.innerHTML = asciiString;
       },
-      characters: words[Math.ceil(wordIndex) % words.length]
+      characters: words[Math.ceil(wordIndex)]
     });
   }
 });
 
 const fireAnimator = new VideoAnimator({
-  width: 160,
-  height: 120,
+  width: 80,
+  height: 60,
   videoSrc: "../fire-720p.mp4",
   onFrame: function (canvas) {
-    wordIndex = wordIndex + 0.01;
-    console.log(wordIndex);
     ascii.fromCanvas(canvas, {
       callback: function (asciiString) {
         fireAsciiContainer.innerHTML = asciiString;
       },
-      characters: words[Math.ceil(wordIndex) % words.length]
+      characters: words[Math.ceil(wordIndex)]
     });
   }
 });
