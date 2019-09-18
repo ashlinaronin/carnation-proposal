@@ -3,16 +3,25 @@
 <head>
   <title>ascii camera</title>
   <meta charset="utf-8" />
-  <link rel="stylesheet" href="css/main.css"/>
+  <style>
+    body {
+      background: white;
+      color: black;
+    }
+
+    #ascii {
+      font-family: 'Courier New', 'Courier', monospace;
+      font-size: 10px;
+      line-height: 10px;
+      letter-spacing: -1.5px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
 
-<div id="notSupported">
-  <h1>Your browser does not support the Camera API.</h1>
-</div>
-
 <pre id="ascii"></pre>
-<button id="button">start</button>
+
 <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
 <video id="water-video" src="fire-720p.mp4" width="640" height="480" loop style="display:none;"></video>
 
