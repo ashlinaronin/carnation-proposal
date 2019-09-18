@@ -9,8 +9,6 @@ var camera = (function () {
   var options;
   var video, canvas, context;
   var videoLoaded = false;
-  var renderTimer;
-
 
   function initVideoStream() {
     video = document.getElementById('water-video');
@@ -42,37 +40,11 @@ var camera = (function () {
   }
 
   function animate() {
-    context.drawImage(video, 0, 0, video.width, video.height);
+    var vRatio = (canvas.height / video.videoHeight) * video.videoWidth;
+    context.drawImage(video, 0,0, vRatio, canvas.height);
+    // context.drawImage(video, 0, 0, video.width, video.height);
     options.onFrame(canvas);
     requestAnimationFrame(animate);
-  }
-
-  function startCapture() {
-    video.play();
-
-    renderTimer = setInterval(function () {
-      try {
-        context.drawImage(video, 0, 0, video.width, video.height);
-        options.onFrame(canvas);
-      } catch (e) {
-        // TODO
-      }
-    }, Math.round(1000 / options.fps));
-  }
-
-  function stopCapture() {
-    pauseCapture();
-
-    if (video.mozSrcObject !== undefined) {
-      video.mozSrcObject = null;
-    } else {
-      video.srcObject = null;
-    }
-  }
-
-  function pauseCapture() {
-    if (renderTimer) clearInterval(renderTimer);
-    video.pause();
   }
 
   return {
@@ -94,12 +66,6 @@ var camera = (function () {
       options.onFrame = options.onFrame || doNothing;
 
       initVideoStream();
-    },
-
-    start: startCapture,
-
-    pause: pauseCapture,
-
-    stop: stopCapture
+    }
   };
 })();
