@@ -20,7 +20,7 @@ var camera = (function () {
   }
 
   function initCanvas() {
-    canvas = options.targetCanvas || document.createElement("canvas");
+    canvas = document.getElementById('canvas');
     canvas.setAttribute('width', options.width);
     canvas.setAttribute('height', options.height);
 
@@ -36,8 +36,6 @@ var camera = (function () {
   function onLoadedData() {
     videoLoaded = true;
     video.play();
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
     video.removeEventListener("loadeddata", onLoadedData);
 
     animate();
