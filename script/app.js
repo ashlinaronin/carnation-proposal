@@ -6,9 +6,14 @@
  * Released under the MIT license
  */
 
+var words = [
+  "fire","water","earth","wind"
+];
+
 (function() {
   var asciiContainer = document.getElementById("ascii");
   var capturing = false;
+  var wordIndex = 0;
 
   camera.init({
     width: 160,
@@ -17,12 +22,14 @@
     mirror: true,
 
     onFrame: function(canvas) {
+      wordIndex = wordIndex + 0.01;
+      console.log(wordIndex);
       ascii.fromCanvas(canvas, {
-        // contrast: 128,
         callback: function(asciiString) {
+
           asciiContainer.innerHTML = asciiString;
         },
-        characters: "customtext"
+        characters: words[Math.ceil(wordIndex) % words.length]
       });
     },
 
