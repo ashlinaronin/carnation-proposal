@@ -25,6 +25,7 @@ export default class VideoAnimator {
   initVideoStream() {
     this.video = document.createElement("video");
     this.video.src = this.options.videoSrc;
+    this.video.loop = true;
     this.video.addEventListener("loadeddata", this.onLoadedData, false);
     this.initCanvas();
   }
@@ -43,12 +44,12 @@ export default class VideoAnimator {
 
   onLoadedData() {
     this.video.removeEventListener("loadeddata", this.onLoadedData);
+    this.vRatio = (this.canvas.height / this.video.videoHeight) * this.video.videoWidth;
     this.animate();
   }
 
   animate() {
-    const vRatio = (this.canvas.height / this.video.videoHeight) * this.video.videoWidth;
-    this.context.drawImage(this.video, 0,0, vRatio, this.canvas.height);
+    this.context.drawImage(this.video, 0,0, this.vRatio, this.canvas.height);
     this.options.onFrame(this.canvas);
     requestAnimationFrame(this.animate);
   }
