@@ -9,7 +9,7 @@
       color: black;
     }
 
-    #ascii {
+    .ascii {
       font-family: 'Courier New', 'Courier', monospace;
       font-size: 10px;
       line-height: 10px;
@@ -22,9 +22,8 @@
 
 <button id="play">play</button>
 
-<pre id="ascii"></pre>
-<!--<video id="fire-video" src="fire-720p.mp4" width="640" height="480" loop autoplay style="display:none;"></video>-->
-<!--<video id="water-video" src="water.mp4" width="640" height="480" loop autoplay style="display:none;"></video>-->
+<pre class="ascii" id="water-ascii"></pre>
+<pre class="ascii" id="fire-ascii"></pre>
 <!-- TODO: turn into module -->
 <script src="script/ascii.js"></script>
 <script type="module" src="script/app.js"></script>

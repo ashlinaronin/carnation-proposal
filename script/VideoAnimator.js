@@ -42,11 +42,7 @@ export default class VideoAnimator {
   }
 
   onLoadedData() {
-    // this.videoLoaded = true;
-    debugger;
-    // this.video.play();
     this.video.removeEventListener("loadeddata", this.onLoadedData);
-
     this.animate();
   }
 

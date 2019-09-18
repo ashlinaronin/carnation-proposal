@@ -12,20 +12,36 @@ const words = [
   "fire", "water", "earth", "wind"
 ];
 
-const asciiContainer = document.getElementById("ascii");
+const fireAsciiContainer = document.getElementById("fire-ascii");
+const waterAsciiContainer = document.getElementById("water-ascii");
 let wordIndex = 0;
 
 const waterAnimator = new VideoAnimator({
   width: 160,
   height: 120,
-  videoElement: document.getElementById("water-video"),
+  videoSrc: "../water.mp4",
   onFrame: function (canvas) {
-    debugger;
     wordIndex = wordIndex + 0.01;
     console.log(wordIndex);
     ascii.fromCanvas(canvas, {
       callback: function (asciiString) {
-        asciiContainer.innerHTML = asciiString;
+        waterAsciiContainer.innerHTML = asciiString;
+      },
+      characters: words[Math.ceil(wordIndex) % words.length]
+    });
+  }
+});
+
+const fireAnimator = new VideoAnimator({
+  width: 160,
+  height: 120,
+  videoSrc: "../fire-720p.mp4",
+  onFrame: function (canvas) {
+    wordIndex = wordIndex + 0.01;
+    console.log(wordIndex);
+    ascii.fromCanvas(canvas, {
+      callback: function (asciiString) {
+        fireAsciiContainer.innerHTML = asciiString;
       },
       characters: words[Math.ceil(wordIndex) % words.length]
     });
@@ -34,6 +50,5 @@ const waterAnimator = new VideoAnimator({
 
 document.getElementById("play").addEventListener("click", () => {
   waterAnimator.play();
+  fireAnimator.play();
 });
-
-// cam.initVideoStream();
